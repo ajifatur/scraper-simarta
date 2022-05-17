@@ -1,9 +1,14 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+const cors = require('cors');
 const express = require('express');
 
 const app = express();
 const port = process.env.PORT || 8080;
+
+app.use(cors({
+    origin: '*'
+}));
 
 app.get('/', (req, res) => {
     axios
@@ -22,6 +27,7 @@ app.get('/', (req, res) => {
                         peminjam: $(elem).find('td:nth-child(6)').text(),
                         keperluan_label: $(elem).find('td:nth-child(7) p.text-muted').text(),
                         keperluan_deskripsi: $(elem).find('td:nth-child(7) span').text(),
+                        hari_ini: $(elem).hasClass('table-warning') ? 1 : 0
                     };
                 });
                 data = data.filter(n => n !== undefined);
