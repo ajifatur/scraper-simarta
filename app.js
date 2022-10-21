@@ -25,9 +25,10 @@ app.get('/', (req, res) => {
                         unit_pemakai: $(elem).find('td:nth-child(4)').text(),
                         jumlah_peserta: $(elem).find('td:nth-child(5)').text(),
                         peminjam: $(elem).find('td:nth-child(6)').text(),
-                        keperluan_label: $(elem).find('td:nth-child(7) p.text-muted').text(),
-                        keperluan_deskripsi: $(elem).find('td:nth-child(7) span').text(),
-                        hari_ini: $(elem).hasClass('table-warning') ? 1 : 0
+                        keperluan_label: $(elem).find('td:nth-child(7) button.keperluan').text().trim(),
+                        keperluan_deskripsi: $(elem).find('td:nth-child(7) button.keperluan').attr('data-content'),
+                        hari_ini: $(elem).hasClass('table-warning') ? 1 : 0,
+                        dalam_konfirmasi: $(elem).find('td:nth-child(4)').text() == 'Dalam Konfirmasi' ? 1 : 0
                     };
                 });
                 data = data.filter(n => n !== undefined);
